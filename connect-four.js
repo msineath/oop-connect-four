@@ -1,37 +1,43 @@
- let turn = 'red';
+let turn = 'red';
 
- const col0 = document.querySelectorAll('[id$="-0"]');
- const col1 = document.querySelectorAll('[id$="-1"]');
- const col2 = document.querySelectorAll('[id$="-2"]');
- const col3 = document.querySelectorAll('[id$="-3"]');
- const col4 = document.querySelectorAll('[id$="-4"]');
- const col5 = document.querySelectorAll('[id$="-5"]');
-
-if (box.id === 'column-0') {
-    // take div at col0[0]; appendChild token to it
-    // .pop col0;
-    // if (col0.length === 1) {
-        // 'column-0' disabled = true
-    //}
-}
+const col0 = document.querySelectorAll('[id$="-0"]');
+const col1 = document.querySelectorAll('[id$="-1"]');
+const col2 = document.querySelectorAll('[id$="-2"]');
+const col3 = document.querySelectorAll('[id$="-3"]');
+const col4 = document.querySelectorAll('[id$="-4"]');
+const col5 = document.querySelectorAll('[id$="-5"]');
+const col6 = document.querySelectorAll('[id$="-6"]');
 
 const board = document.getElementById('click-targets');
+const colArr = [col0, col1, col2, col3, col4, col5, col6];
 
-board.addEventListener('click', event => {
-    const box = event.target //.id  // ${[7]}
+board.addEventListener('click', event => {  
+    const box = event.target
+    const token = document.createElement('img');
+    token.setAttribute('class', 'token');
+    let targetChecker = (box.id.slice(box.id.length-1));
     if (turn === 'red') {
-        const token = document.createElement('img');
-        token.setAttribute('class', 'token');
         token.classList.add('red');
-        box.appendChild(token);
+
+        // for (let col of colArr) {
+            // if (col[0].id.slice(col[0].id.length -1) === targetChecker) {
+                // col[col.length -1].appendChild(token);
+                // colArr[colArr.indexOf(col)].pop();
+            // }
+        // }
         turn = 'black';
+        return;
     }
     if (turn === 'black') {
-        const box = event.target;
-        const token = document.createElement('img');
-        token.setAttribute('class', 'token');
         token.classList.add('black');
-        box.appendChild(token);
+
+        for (let col of colArr) {
+            if (col[0].id.slice(col[0].id.length -1) === targetChecker) {
+            col[col.length -1].appendChild(token);
+            col.pop();
+            }
+        }
+
         turn = 'red';
     }
 
